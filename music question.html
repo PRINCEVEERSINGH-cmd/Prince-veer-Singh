@@ -1,430 +1,231 @@
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Class 12 Music Quiz</title>
+```css
+/* ================================
+   CLASS 12 MUSIC QUIZ - CSS
+   ================================ */
 
-<style>
-    * {
-        box-sizing: border-box;
-    }
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Main Container */
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* Heading */
+h1 {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* Sections */
+.section {
+    margin-top: 30px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #f8f9fa;
+}
+
+.section h2 {
+    margin-top: 5px;
+}
+
+/* Questions */
+.question {
+    background: white;
+    padding: 18px;
+    margin: 15px 0;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.question h3 {
+    margin-top: 0;
+    line-height: 1.5;
+}
+
+/* MCQ Options */
+label {
+    display: block;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+label:hover {
+    background: #f0f4f8;
+}
+
+input[type="radio"] {
+    margin-right: 8px;
+}
+
+/* Text Answer Box */
+textarea {
+    width: 100%;
+    min-height: 110px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    resize: vertical;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #555;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 25px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #222;
+    color: white;
+    transition: 0.2s;
+}
+
+button:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+/* Result Box */
+#result {
+    display: none;
+    margin-top: 25px;
+    padding: 25px;
+    border-radius: 12px;
+    background: #eef6ff;
+    text-align: center;
+}
+
+/* Score */
+.score {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 10px;
+}
+
+/* Rating */
+.rating {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Feedback */
+.feedback {
+    margin-top: 15px;
+    text-align: left;
+    line-height: 1.6;
+}
+
+/* Correct Answer */
+.correct {
+    background: #e7f7e7;
+    border-left: 5px solid green;
+    padding: 10px;
+    margin-top: 8px;
+}
+
+/* Wrong Answer */
+.wrong {
+    background: #ffeaea;
+    border-left: 5px solid red;
+    padding: 10px;
+    margin-top: 8px;
+}
+
+/* Note */
+.note {
+    font-size: 13px;
+    color: #666;
+    margin-top: 8px;
+}
+
+/* ================================
+   MOBILE RESPONSIVE DESIGN
+   ================================ */
+
+@media (max-width: 600px) {
 
     body {
-        font-family: Arial, sans-serif;
-        background: #f4f6f8;
-        margin: 0;
-        padding: 20px;
+        padding: 10px;
     }
 
     .container {
-        max-width: 900px;
-        margin: auto;
-        background: white;
-        padding: 25px;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        padding: 15px;
+        border-radius: 10px;
     }
 
     h1 {
-        text-align: center;
-        margin-bottom: 5px;
+        font-size: 25px;
     }
 
     .subtitle {
-        text-align: center;
-        color: #666;
-        margin-bottom: 25px;
+        font-size: 14px;
     }
 
     .section {
-        margin-top: 30px;
-        padding: 15px;
-        border-radius: 10px;
-        background: #f8f9fa;
+        padding: 10px;
+        margin-top: 20px;
+    }
+
+    .section h2 {
+        font-size: 19px;
     }
 
     .question {
-        background: white;
-        padding: 18px;
-        margin: 15px 0;
-        border-radius: 10px;
-        border: 1px solid #ddd;
+        padding: 14px;
+        margin: 12px 0;
     }
 
     .question h3 {
-        margin-top: 0;
-    }
-
-    label {
-        display: block;
-        padding: 8px;
-        cursor: pointer;
+        font-size: 16px;
     }
 
     textarea {
-        width: 100%;
-        min-height: 110px;
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        font-size: 15px;
-        resize: vertical;
+        font-size: 14px;
     }
 
     button {
-        width: 100%;
-        padding: 15px;
-        margin-top: 25px;
-        border: none;
-        border-radius: 10px;
-        font-size: 18px;
-        font-weight: bold;
-        cursor: pointer;
-        background: #222;
-        color: white;
-    }
-
-    button:hover {
-        opacity: 0.85;
-    }
-
-    #result {
-        display: none;
-        margin-top: 25px;
-        padding: 25px;
-        border-radius: 12px;
-        background: #eef6ff;
-        text-align: center;
+        font-size: 16px;
+        padding: 13px;
     }
 
     .score {
-        font-size: 32px;
-        font-weight: bold;
-        margin: 10px;
+        font-size: 27px;
     }
 
     .rating {
-        font-size: 24px;
-        font-weight: bold;
+        font-size: 20px;
     }
-
-    .feedback {
-        margin-top: 15px;
-        text-align: left;
-        line-height: 1.6;
-    }
-
-    .correct {
-        background: #e7f7e7;
-        border-left: 5px solid green;
-        padding: 10px;
-        margin-top: 8px;
-    }
-
-    .wrong {
-        background: #ffeaea;
-        border-left: 5px solid red;
-        padding: 10px;
-        margin-top: 8px;
-    }
-
-    .note {
-        font-size: 13px;
-        color: #666;
-        margin-top: 8px;
-    }
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-<h1>🎵 Class 12 Music Quiz</h1>
-<div class="subtitle">
-    CBSE Practice Paper | Maximum Marks: 30
-</div>
-
-<!-- SECTION A -->
-<div class="section">
-<h2>Section A — MCQs (8 × 1 = 8)</h2>
-
-<div class="question">
-<h3>Q1. Which of the following refers to ornamentation in which a note is sung with a forceful oscillation?</h3>
-
-<label><input type="radio" name="q1" value="A"> A) Kan</label>
-<label><input type="radio" name="q1" value="B"> B) Gamak</label>
-<label><input type="radio" name="q1" value="C"> C) Meend</label>
-<label><input type="radio" name="q1" value="D"> D) Murki</label>
-</div>
-
-<div class="question">
-<h3>Q2. The gradual movement from one note to another without a break is known as:</h3>
-
-<label><input type="radio" name="q2" value="A"> A) Khatka</label>
-<label><input type="radio" name="q2" value="B"> B) Tana</label>
-<label><input type="radio" name="q2" value="C"> C) Meend</label>
-<label><input type="radio" name="q2" value="D"> D) Alankar</label>
-</div>
-
-<div class="question">
-<h3>Q3. Sangeet Ratnakar was written by:</h3>
-
-<label><input type="radio" name="q3" value="A"> A) Ahobala</label>
-<label><input type="radio" name="q3" value="B"> B) Sharangadeva</label>
-<label><input type="radio" name="q3" value="C"> C) Vishnu Digambar Paluskar</label>
-<label><input type="radio" name="q3" value="D"> D) Tansen</label>
-</div>
-
-<div class="question">
-<h3>Q4. Sangeet Parijaat is associated with:</h3>
-
-<label><input type="radio" name="q4" value="A"> A) Ahobala</label>
-<label><input type="radio" name="q4" value="B"> B) Sharangadeva</label>
-<label><input type="radio" name="q4" value="C"> C) Krishna Rao Shankar Pandit</label>
-<label><input type="radio" name="q4" value="D"> D) Faiyaz Khan</label>
-</div>
-
-<div class="question">
-<h3>Q5. According to the traditional Time Theory, Ragas are broadly associated with different:</h3>
-
-<label><input type="radio" name="q5" value="A"> A) Talas</label>
-<label><input type="radio" name="q5" value="B"> B) Times of the day</label>
-<label><input type="radio" name="q5" value="C"> C) Instruments</label>
-<label><input type="radio" name="q5" value="D"> D) Gharanas</label>
-</div>
-
-<div class="question">
-<h3>Q6. Ustad Bade Ghulam Ali Khan was famous primarily for which style of Hindustani vocal music?</h3>
-
-<label><input type="radio" name="q6" value="A"> A) Dhrupad</label>
-<label><input type="radio" name="q6" value="B"> B) Khayal</label>
-<label><input type="radio" name="q6" value="C"> C) Thumri only</label>
-<label><input type="radio" name="q6" value="D"> D) Tarana only</label>
-</div>
-
-<div class="question">
-<h3>Q7. Krishna Rao Shankar Pandit belonged to the:</h3>
-
-<label><input type="radio" name="q7" value="A"> A) Gwalior Gharana</label>
-<label><input type="radio" name="q7" value="B"> B) Patiala Gharana</label>
-<label><input type="radio" name="q7" value="C"> C) Agra Gharana</label>
-<label><input type="radio" name="q7" value="D"> D) Kirana Gharana</label>
-</div>
-
-<div class="question">
-<h3>Q8. Ustad Faiyaz Khan was an important exponent of the:</h3>
-
-<label><input type="radio" name="q8" value="A"> A) Agra Gharana</label>
-<label><input type="radio" name="q8" value="B"> B) Jaipur Gharana</label>
-<label><input type="radio" name="q8" value="C"> C) Patiala Gharana</label>
-<label><input type="radio" name="q8" value="D"> D) Kirana Gharana</label>
-</div>
-
-</div>
-
-<!-- SECTION B -->
-<div class="section">
-<h2>Section B — Short Answer (5 × 2 = 10)</h2>
-
-<div class="question">
-<h3>Q9. Define Kan and Meend. Write one difference between them. (2 marks)</h3>
-<textarea id="q9" placeholder="Type your answer here..."></textarea>
-</div>
-
-<div class="question">
-<h3>Q10. What is Murchhana? How is it related to the concept of Gram? (2 marks)</h3>
-<textarea id="q10" placeholder="Type your answer here..."></textarea>
-</div>
-
-<div class="question">
-<h3>Q11. What is meant by the Time Theory of Ragas? (2 marks)</h3>
-<textarea id="q11" placeholder="Type your answer here..."></textarea>
-</div>
-
-<div class="question">
-<h3>Q12. Write any two important contributions of Sangeet Ratnakar to Indian classical music. (2 marks)</h3>
-<textarea id="q12" placeholder="Type your answer here..."></textarea>
-</div>
-
-<div class="question">
-<h3>Q13. Write any two important features of the Time Theory of Ragas. (2 marks)</h3>
-<textarea id="q13" placeholder="Type your answer here..."></textarea>
-</div>
-
-</div>
-
-<!-- SECTION C -->
-<div class="section">
-<h2>Section C — Long Answer (2 × 6 = 12)</h2>
-
-<div class="question">
-<h3>Q14. Explain the following terms in detail: Alankar, Khatka, Murki, Gamak, Alap and Tana. (6 marks)</h3>
-<textarea id="q14" style="min-height:180px" placeholder="Type your detailed answer here..."></textarea>
-</div>
-
-<div class="question">
-<h3>Q15. Give a detailed account of the life and musical contributions of any ONE:</h3>
-<p>
-1. Ustad Bade Ghulam Ali Khan<br>
-2. Krishna Rao Shankar Pandit<br>
-3. Ustad Faiyaz Khan
-</p>
-
-<textarea id="q15" style="min-height:180px" placeholder="Type your detailed answer here..."></textarea>
-</div>
-
-</div>
-
-<button onclick="checkAnswers()">📊 Submit & Get My Rating</button>
-
-<div id="result">
-<h2>🎯 Your Result</h2>
-
-<div class="score" id="score"></div>
-<div class="rating" id="rating"></div>
-
-<div class="feedback" id="feedback"></div>
-
-</div>
-
-</div>
-
-<script>
-
-function getRadio(name) {
-    let selected = document.querySelector('input[name="' + name + '"]:checked');
-    return selected ? selected.value : "";
 }
-
-function checkAnswers() {
-
-    // Correct MCQ answers
-    const correct = {
-        q1: "B",
-        q2: "C",
-        q3: "B",
-        q4: "A",
-        q5: "B",
-        q6: "B",
-        q7: "A",
-        q8: "A"
-    };
-
-    let score = 0;
-    let mcqCorrect = 0;
-
-    // Check MCQs
-    for (let q in correct) {
-        if (getRadio(q) === correct[q]) {
-            score++;
-            mcqCorrect++;
-        }
-    }
-
-    // Estimate written-answer scores
-    // Based on answer length and important keywords.
-    let writtenQuestions = ["q9","q10","q11","q12","q13","q14","q15"];
-
-    let writtenScore = 0;
-
-    writtenQuestions.forEach(function(q) {
-
-        let answer = document.getElementById(q).value.trim();
-
-        if (answer.length === 0) {
-            return;
-        }
-
-        let words = answer.split(/\s+/).length;
-
-        if (q === "q14" || q === "q15") {
-
-            if (words >= 80) {
-                writtenScore += 6;
-            } else if (words >= 50) {
-                writtenScore += 5;
-            } else if (words >= 30) {
-                writtenScore += 4;
-            } else if (words >= 15) {
-                writtenScore += 2;
-            } else {
-                writtenScore += 1;
-            }
-
-        } else {
-
-            if (words >= 25) {
-                writtenScore += 2;
-            } else if (words >= 10) {
-                writtenScore += 1;
-            }
-        }
-    });
-
-    // Maximum written marks = 22
-    // But user has to answer only one of the alternatives in Q14/Q15.
-    // Therefore cap total at 30.
-    score += writtenScore;
-
-    if (score > 30) {
-        score = 30;
-    }
-
-    let percentage = (score / 30) * 100;
-
-    let rating = "";
-    let feedback = "";
-
-    if (percentage >= 90) {
-        rating = "🏆 Outstanding — A+";
-        feedback = "Excellent preparation! Your performance is at a very strong board-exam level.";
-    }
-    else if (percentage >= 80) {
-        rating = "🌟 Excellent — A";
-        feedback = "Very good! Revise a few weak areas and you can aim for top marks.";
-    }
-    else if (percentage >= 70) {
-        rating = "👍 Very Good — B+";
-        feedback = "Good preparation. Focus on definitions, important names and detailed answers.";
-    }
-    else if (percentage >= 60) {
-        rating = "🙂 Good — B";
-        feedback = "You have a decent base. More revision and answer-writing practice is needed.";
-    }
-    else if (percentage >= 50) {
-        rating = "📚 Needs Improvement — C";
-        feedback = "Revise the syllabus again, especially Unit 1, Treatises and biographies.";
-    }
-    else {
-        rating = "⚠️ More Preparation Needed";
-        feedback = "Don't worry. Start with the important definitions, treatises, Time Theory and biographies.";
-    }
-
-    document.getElementById("score").innerHTML =
-        score + " / 30 (" + percentage.toFixed(1) + "%)";
-
-    document.getElementById("rating").innerHTML = rating;
-
-    document.getElementById("feedback").innerHTML =
-        "<strong>MCQ Score:</strong> " + mcqCorrect + " / 8<br>" +
-        "<strong>Overall Feedback:</strong> " + feedback +
-        "<br><br>" +
-        "<strong>Note:</strong> Written answers are estimated using answer length. " +
-        "For a real CBSE-style evaluation, the answers should be checked against the marking scheme.";
-
-    document.getElementById("result").style.display = "block";
-
-    window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: "smooth"
-    });
-}
-
-</script>
-
-</body>
-</html>
 ```
