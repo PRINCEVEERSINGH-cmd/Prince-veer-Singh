@@ -1,2 +1,233 @@
 # Prince-veer-Singh
 music question paper
+```css
+/* ================================
+   CLASS 12 MUSIC QUIZ - CSS
+   ================================ */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Main Container */
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* Heading */
+h1 {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* Sections */
+.section {
+    margin-top: 30px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #f8f9fa;
+}
+
+.section h2 {
+    margin-top: 5px;
+}
+
+/* Questions */
+.question {
+    background: white;
+    padding: 18px;
+    margin: 15px 0;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.question h3 {
+    margin-top: 0;
+    line-height: 1.5;
+}
+
+/* MCQ Options */
+label {
+    display: block;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+label:hover {
+    background: #f0f4f8;
+}
+
+input[type="radio"] {
+    margin-right: 8px;
+}
+
+/* Text Answer Box */
+textarea {
+    width: 100%;
+    min-height: 110px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    resize: vertical;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #555;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 25px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #222;
+    color: white;
+    transition: 0.2s;
+}
+
+button:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+/* Result Box */
+#result {
+    display: none;
+    margin-top: 25px;
+    padding: 25px;
+    border-radius: 12px;
+    background: #eef6ff;
+    text-align: center;
+}
+
+/* Score */
+.score {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 10px;
+}
+
+/* Rating */
+.rating {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Feedback */
+.feedback {
+    margin-top: 15px;
+    text-align: left;
+    line-height: 1.6;
+}
+
+/* Correct Answer */
+.correct {
+    background: #e7f7e7;
+    border-left: 5px solid green;
+    padding: 10px;
+    margin-top: 8px;
+}
+
+/* Wrong Answer */
+.wrong {
+    background: #ffeaea;
+    border-left: 5px solid red;
+    padding: 10px;
+    margin-top: 8px;
+}
+
+/* Note */
+.note {
+    font-size: 13px;
+    color: #666;
+    margin-top: 8px;
+}
+
+/* ================================
+   MOBILE RESPONSIVE DESIGN
+   ================================ */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+
+    .section {
+        padding: 10px;
+        margin-top: 20px;
+    }
+
+    .section h2 {
+        font-size: 19px;
+    }
+
+    .question {
+        padding: 14px;
+        margin: 12px 0;
+    }
+
+    .question h3 {
+        font-size: 16px;
+    }
+
+    textarea {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 13px;
+    }
+
+    .score {
+        font-size: 27px;
+    }
+
+    .rating {
+        font-size: 20px;
+    }
+}
+```
