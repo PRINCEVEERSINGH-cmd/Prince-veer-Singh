@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PawCare – Pet Health Prototype</title>
+<style>
+:root{--bg:#f3efe6;--card:#fffdf8;--ink:#17332f;--mut:#6b7c77;--pri:#0f6b5c;--pri2:#0b4f44;--acc:#f2994a;--red:#d64545;--grn:#2e9e6b;--line:#e4ded0;--soft:#e3f1ec;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1b19;--card:#162825;--ink:#eaf3f0;--mut:#93a8a2;--pri:#3fbfa6;--pri2:#2aa58c;--line:#25403b;--soft:#1d3733}}
+:root[data-theme="dark"]{--bg:#0e1b19;--card:#162825;--ink:#eaf3f0;--mut:#93a8a2;--pri:#3fbfa6;--pri2:#2aa58c;--line:#25403b;--soft:#1d3733}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--ink);font-family:"Avenir Next",Nunito,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;display:flex;justify-content:center;align-items:center}
+#app{width:100%;height:100%;max-width:430px;background:var(--bg);position:relative;display:flex;flex-direction:column;overflow:hidden}
+@media (min-width:600px){#app{height:min(860px,96%);border-radius:38px;border:8px solid #101c1a;box-shadow:0 20px 60px rgba(0,0,0,.3)}}
+#scr{flex:1;overflow-y:auto;padding:16px 18px 24px;animation:in .25s}
+@keyframes in{from{opacity:0;transform:translateY(8px)}}
+@media (prefers-reduced-motion:reduce){#scr{animation:none}}
+h1{font:800 26px/1.15 Georgia,"Times New Roman",serif;margin:0 0 6px}h2{font-size:17px;margin:20px 0 10px}h3{font-size:15px;margin:0}
+p{margin:0;color:var(--mut);font-size:13.5px;line-height:1.45}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:10px}
+.row{display:flex;align-items:center;gap:12px}.sp{justify-content:space-between}.g{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+.btn{border:0;border-radius:14px;padding:14px;font:700 15px inherit;font-family:inherit;background:var(--pri);color:#fff;width:100%;cursor:pointer}
+.btn.o{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}.btn:active{transform:scale(.98)}
+.ic{width:42px;height:42px;border-radius:13px;background:var(--soft);display:grid;place-items:center;font-size:21px;flex:none}
+.tile{text-align:left;border:1px solid var(--line);background:var(--card);border-radius:18px;padding:14px;cursor:pointer;color:var(--ink);font-family:inherit}
+.tile b{display:block;margin:8px 0 2px;font-size:14.5px}.tile span{font-size:12px;color:var(--mut)}
+.tag{font-size:11.5px;font-weight:700;padding:4px 9px;border-radius:99px;background:var(--soft);color:var(--pri)}
+.tag.r{background:#f9dcdc;color:var(--red)}.tag.y{background:#fde9d2;color:#b4630f}.tag.g{background:#d9f1e5;color:var(--grn)}
+.nav{display:flex;border-top:1px solid var(--line);background:var(--card);padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px))}
+.nav button{flex:1;border:0;background:none;color:var(--mut);font:600 11px inherit;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer}
+.nav button span{font-size:21px}.nav .on{color:var(--pri)}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:14px}.bk{border:1px solid var(--line);background:var(--card);color:var(--ink);width:38px;height:38px;border-radius:12px;font-size:18px;cursor:pointer}
+input,select,textarea{width:100%;padding:13px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:15px inherit;font-family:inherit;margin-bottom:10px}
+.chip{display:inline-block;margin:0 6px 8px 0;padding:8px 13px;border-radius:99px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:600 13px inherit;font-family:inherit;cursor:pointer}
+.chip.on{background:var(--pri);border-color:var(--pri);color:#fff}
+.hero{background:linear-gradient(135deg,var(--pri2),var(--pri));color:#fff;border-radius:22px;padding:18px;margin-bottom:12px}.hero p{color:#d5ece6}
+.soc{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:700 15px inherit;font-family:inherit;margin-bottom:10px;cursor:pointer}
+.toast{position:absolute;left:18px;right:18px;bottom:90px;background:#17332f;color:#fff;padding:13px;border-radius:14px;font-size:14px;text-align:center;animation:in .2s;z-index:9}
+.bar{height:8px;border-radius:9px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;background:var(--pri)}
+.sw{display:flex;background:var(--soft);border-radius:14px;padding:4px;margin-bottom:12px}.sw button{flex:1;border:0;padding:10px;border-radius:11px;background:none;color:var(--ink);font:700 14px inherit;font-family:inherit;cursor:pointer}.sw .on{background:var(--card);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.warn{background:#fde9d2;color:#7a4208;border-radius:14px;padding:12px;font-size:13px;line-height:1.4;margin-bottom:12px}
+button:focus-visible,input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+</style></head><body><div id="app"><div id="scr"></div><div id="nv"></div></div>
+<script>
+const $=s=>document.querySelector(s);
+const S={scr:'login',hist:[],tab:'All',sym:[],plan:'y',w:[25.8,26.6,27.1,27.6,28.0],vax:[
+{n:'Rabies booster',d:'12 Oct 2026',s:'due',i:'💉'},{n:'DHPPi (combo)',d:'28 Sep 2026',s:'over',i:'💉'},{n:'Deworming (tablet)',d:'20 Oct 2026',s:'due',i:'🐛'},{n:'Tick & flea',d:'Done 02 Sep',s:'done',i:'🛡️'}],
+recs:[{t:'Rx',n:'Amoxicillin 250mg',d:'12 Aug 2026 · Dr. Mehta',i:'💊'},{t:'Reports',n:'Blood test (CBC)',d:'12 Aug 2026 · PDF',i:'🧪'},{t:'History',n:'Ear infection treated',d:'Jun 2026',i:'📖'},{t:'Reports',n:'X-ray hip joint',d:'Feb 2026 · PDF',i:'🩻'}]};
+const NAVS=[['home','🏠','Home'],['vax','💉','Health'],['vet','🩺','Vet'],['pawid','🚨','PawID'],['prem','⭐','Premium']];
+function go(s,back){if(!back)S.hist.push(S.scr);S.scr=s;draw()}
+function back(){S.scr=S.hist.pop()||'home';draw()}
+function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;$('#app').appendChild(t);setTimeout(()=>t.remove(),2200)}
+const hdr=(t,sub)=>`<div class="top"><button class="bk" onclick="back()" aria-label="Back">‹</button><div><h3 style="font-size:18px">${t}</h3>${sub?`<p>${sub}</p>`:''}</div></div>`;
+function qr(){let r='',n=21,x=7;const f=(a,b)=>`<rect x="${a}" y="${b}" width="7" height="7" fill="#17332f"/><rect x="${a+1}" y="${b+1}" width="5" height="5" fill="#fff"/><rect x="${a+2}" y="${b+2}" width="3" height="3" fill="#17332f"/>`;
+for(let i=0;i<n;i++)for(let j=0;j<n;j++){if((i<8&&(j<8||j>12))||(i>12&&j<8))continue;x=(x*9301+49297)%233280;if(x%5<2)r+=`<rect x="${j}" y="${i}" width="1" height="1" fill="#17332f"/>`}
+return `<svg viewBox="0 0 21 21" width="190" height="190" style="background:#fff;padding:8px;border-radius:14px;box-sizing:content-box"><g transform="scale(.142857)" style="display:none"></g>${r}<g transform="scale(1)">${[[0,0],[14,0],[0,14]].map(([a,b])=>`<rect x="${a}" y="${b}" width="7" height="7" fill="#17332f"/><rect x="${a+1}" y="${b+1}" width="5" height="5" fill="#fff"/><rect x="${a+2}" y="${b+2}" width="3" height="3" fill="#17332f"/>`).join('')}</g></svg>`}
+function chart(){const w=S.w,mn=Math.min(...w)-1,mx=Math.max(...w)+1,W=300,H=110;const p=w.map((v,i)=>[10+i*(W-20)/Math.max(w.length-1,1),H-10-(v-mn)/(mx-mn)*(H-20)]);
+return `<svg viewBox="0 0 ${W} ${H}" width="100%"><polyline fill="none" stroke="var(--pri)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="${p.map(a=>a.join(',')).join(' ')}"/>${p.map(a=>`<circle cx="${a[0]}" cy="${a[1]}" r="4.5" fill="var(--acc)"/>`).join('')}</svg>`}
+const V={
+login:()=>`<div style="text-align:center;padding-top:28px"><div style="font-size:64px">🐾</div><h1 style="font-size:34px">PawCare</h1><p>Your pet's health, records and emergency ID — all in one pocket.</p></div>
+<div style="margin-top:34px"><button class="soc" onclick="signin('Google')"><b style="color:#4285F4;font-size:18px">G</b> Continue with Google</button>
+<button class="soc" onclick="signin('Facebook')"><b style="color:#1877F2;font-size:18px">f</b> Continue with Facebook</button>
+<button class="soc" onclick="signin('Apple')"><b style="font-size:18px"></b> Continue with Apple ID</button>
+<div class="row" style="margin:14px 0"><hr style="flex:1;border:0;border-top:1px solid var(--line)"><p>or use email</p><hr style="flex:1;border:0;border-top:1px solid var(--line)"></div>
+<input placeholder="Email or phone" aria-label="Email"><input type="password" placeholder="Password" aria-label="Password"><button class="btn" onclick="signin('email')">Log in</button>
+<p style="text-align:center;margin-top:14px">New here? <b style="color:var(--pri)" onclick="signin('email')">Create account</b></p></div>`,
+home:()=>`<div class="row sp"><div><p>Good morning, Aarav 👋</p><h1>Bruno is doing great</h1></div><div class="ic" onclick="go('pet')" style="font-size:26px">🐕</div></div>
+<div class="hero"><div class="row sp"><b>Next up</b><span class="tag y">in 7 days</span></div><h3 style="margin:8px 0 2px;font-size:19px">Rabies booster</h3><p>12 Oct · Dr. Mehta, Paws Vet Clinic</p></div>
+<div class="card row" onclick="go('vax')" style="border-color:var(--red)"><div class="ic" style="background:#f9dcdc">⚠️</div><div><h3>1 vaccine overdue</h3><p>DHPPi was due 28 Sep. Tap to fix.</p></div></div>
+<h2>Everything for Bruno</h2><div class="g">
+<button class="tile" onclick="go('pet')"><div class="ic">🐾</div><b>Pet Profile</b><span>Breed, age, allergies</span></button>
+<button class="tile" onclick="go('vax')"><div class="ic">💉</div><b>Vaccines</b><span>Reminders & deworming</span></button>
+<button class="tile" onclick="go('rec')"><div class="ic">📋</div><b>Health Records</b><span>Rx, reports, history</span></button>
+<button class="tile" onclick="go('trk')"><div class="ic">📊</div><b>Health Tracker</b><span>Weight & appetite</span></button>
+<button class="tile" onclick="go('vet')"><div class="ic">🩺</div><b>Vet Connect</b><span>Book an appointment</span></button>
+<button class="tile" onclick="go('sym')"><div class="ic">🤖</div><b>Symptom Support</b><span>Guidance, not diagnosis</span></button></div>
+<button class="card row" onclick="go('pawid')" style="width:100%;margin-top:10px;cursor:pointer;text-align:left;color:var(--ink);font-family:inherit;border-color:var(--acc)"><div class="ic" style="background:#fde9d2">🚨</div><div><h3>PawID emergency profile</h3><p>Show if Bruno is ever lost or hurt</p></div></button>`,
+pet:()=>hdr('Pet Profile')+`<div class="card" style="text-align:center"><div style="font-size:68px">🐕</div><h1>Bruno</h1><p>Labrador Retriever · Male</p></div>
+<div class="g"><div class="card"><p>Age</p><h3>3 years</h3></div><div class="card"><p>Weight</p><h3>${S.w.at(-1)} kg</h3></div></div>
+<div class="card"><p>Allergies</p><div style="margin-top:8px"><span class="tag r">Chicken</span> <span class="tag r">Dust mites</span> <span class="tag r">Penicillin</span></div></div>
+<div class="card"><p>Owner</p><h3>Aarav Sharma · +91 98xxx xx210</h3></div><button class="btn o" onclick="toast('Edit mode opens here')">Edit profile</button>`,
+vax:()=>`<h1>Health Tracker</h1><p style="margin-bottom:14px">Vaccination & deworming</p>`+S.vax.map((v,i)=>`<div class="card row"><div class="ic">${v.i}</div><div style="flex:1"><h3>${v.n}</h3><p>${v.d}</p></div>${v.s=='done'?'<span class="tag g">Done</span>':`<div style="text-align:right"><span class="tag ${v.s=='over'?'r':'y'}">${v.s=='over'?'Overdue':'Upcoming'}</span><br><button class="chip" style="margin:8px 0 0;padding:5px 10px" onclick="mark(${i})">Mark done</button></div>`}</div>`).join('')+`<button class="btn" onclick="toast('Reminder set for 9:00 AM ✓')">🔔 Remind me</button>`,
+rec:()=>hdr('Digital Health Records')+['All','Rx','Reports','History'].map(t=>`<button class="chip ${S.tab==t?'on':''}" onclick="S.tab='${t}';draw()">${t}</button>`).join('')+S.recs.filter(r=>S.tab=='All'||r.t==S.tab).map(r=>`<div class="card row" onclick="toast('Opening ${r.n}')"><div class="ic">${r.i}</div><div style="flex:1"><h3>${r.n}</h3><p>${r.d}</p></div><span class="tag">${r.t}</span></div>`).join('')+`<button class="btn" onclick="S.recs.unshift({t:'Reports',n:'New upload',d:'Today · Photo',i:'📄'});draw();toast('Record uploaded')">＋ Upload record</button>`,
+trk:()=>hdr('Health Tracker','Weight, appetite & notes')+`<div class="card"><div class="row sp"><h3>Weight</h3><span class="tag g">▲ 0.4 kg this month</span></div>${chart()}<div class="row sp"><input id="wi" type="number" step="0.1" placeholder="Add today's kg" style="margin:0"><button class="btn" style="width:90px" onclick="addw()">Add</button></div></div>
+<div class="card"><h3>Appetite today</h3><div style="margin-top:10px">${['😟 Low','😐 Normal','😋 Great'].map((a,i)=>`<button class="chip ${S.ap==i?'on':''}" onclick="S.ap=${i};draw();toast('Appetite logged')">${a}</button>`).join('')}</div></div>
+<div class="card"><h3>Observation</h3><textarea rows="2" placeholder="e.g. Scratching left ear after walk"></textarea><button class="btn o" onclick="toast('Note saved')">Save note</button></div>`,
+vet:()=>hdr('Vet Connect')+`<div class="card"><div class="row"><div class="ic">🏥</div><div><h3>Paws Vet Clinic</h3><p>Dr. Neha Mehta · Model Town, Ludhiana</p></div></div><div class="g" style="margin-top:12px"><button class="btn o" onclick="toast('Calling clinic…')">📞 Call</button><button class="btn o" onclick="toast('Opening directions…')">📍 Directions</button></div></div>
+<h2>Request appointment</h2><select aria-label="Reason"><option>Routine check-up</option><option>Vaccination</option><option>Skin / allergy</option><option>Emergency</option></select><div class="g"><input type="date" aria-label="Date"><select aria-label="Time"><option>10:00 AM</option><option>12:00 PM</option><option>5:00 PM</option></select></div><button class="btn" onclick="go('ok')">Send request</button>`,
+ok:()=>`<div style="text-align:center;padding-top:60px"><div style="font-size:70px">✅</div><h1>Request sent</h1><p>Paws Vet Clinic will confirm Bruno's slot on WhatsApp within 30 minutes.</p><button class="btn" style="margin-top:28px" onclick="S.hist=[];go('home')">Back to home</button></div>`,
+pawid:()=>`<div class="top"><button class="bk" onclick="back()">‹</button><h3 style="font-size:18px">PawID</h3></div><div class="card" style="text-align:center;border:2px solid var(--red)"><span class="tag r">EMERGENCY PROFILE</span><div style="font-size:52px;margin:6px">🐕</div><h1>Bruno</h1><p>Labrador · 3 yrs · 28 kg</p><div style="margin:14px 0">${qr()}</div><p>Scan on collar tag to see owner contact & medical alerts</p></div>
+<div class="card"><p>Allergies</p><h3>Chicken · Dust mites · Penicillin</h3></div><div class="card"><p>Owner</p><h3>Aarav Sharma · +91 98xxx xx210</h3></div><div class="g"><button class="btn o" onclick="toast('Tag design saved to gallery')">Download tag</button><button class="btn" onclick="toast('Link copied')">Share</button></div>`,
+sym:()=>hdr('Symptom Support','Guidance only')+`<div class="warn">⚠️ This is general guidance, <b>not a diagnosis</b>. It cannot replace a veterinarian. In an emergency, go to a clinic now.</div><p style="margin-bottom:10px">What are you noticing in Bruno?</p>${['Vomiting','Diarrhoea','Not eating','Limping','Scratching','Lethargy'].map(s=>`<button class="chip ${S.sym.includes(s)?'on':''}" onclick="tg('${s}')">${s}</button>`).join('')}
+${S.sym.length?`<div class="card" style="margin-top:8px"><h3>What you can do now</h3><p style="margin:8px 0">• Keep Bruno calm, hydrated and note when it started.<br>• Avoid giving human medicines.<br>• Track appetite & weight for 24 hours.</p><span class="tag y">See a vet if it lasts over 24 hrs</span></div><button class="btn" onclick="go('vet')">Book a vet visit</button>`:'<p>Select one or more symptoms to see guidance.</p>'}`,
+prem:()=>`<div style="text-align:center"><div style="font-size:44px">⭐</div><h1>PawCare Premium</h1><p style="margin-bottom:16px">Everything Bruno needs, unlocked</p></div><div class="sw"><button class="${S.plan=='m'?'on':''}" onclick="S.plan='m';draw()">Monthly</button><button class="${S.plan=='y'?'on':''}" onclick="S.plan='y';draw()">Yearly</button></div>
+<div class="card" style="text-align:center;border:2px solid var(--pri)"><h1 style="font-size:40px">${S.plan=='m'?'₹99':'₹899'}<span style="font-size:15px;color:var(--mut)">${S.plan=='m'?' / month':' / year'}</span></h1>${S.plan=='y'?'<span class="tag g">Save ₹289 · just ₹75/month</span>':'<p>Cancel anytime</p>'}</div>
+<div class="card"><p style="color:var(--ink);line-height:2">✓ Unlimited pets & records<br>✓ Smart vaccine & deworming reminders<br>✓ Printable PawID collar tags<br>✓ Priority vet appointment requests<br>✓ Full health trend reports</p></div><button class="btn" onclick="go('pay')">Continue to payment</button>`,
+pay:()=>{const a=S.plan=='m'?99:899;return hdr('Pay with UPI','Secure checkout')+`<div class="card"><div class="row sp"><div><h3>PawCare Premium</h3><p>${S.plan=='m'?'Monthly plan':'Yearly plan'}</p></div><h1 style="margin:0">₹${a}</h1></div></div>
+<div class="card"><p>Pay to UPI ID</p><div class="row sp" style="margin-top:6px"><h3>8968108692@fam</h3><button class="chip" style="margin:0" onclick="cp()">Copy</button></div></div>
+<p style="margin-bottom:8px">Choose your UPI app</p><div class="g" style="margin-bottom:12px">${['Google Pay','PhonePe','Paytm','BHIM / Other'].map(n=>`<button class="soc" style="margin:0" onclick="upi(${a})">${n}</button>`).join('')}</div>
+<button class="btn" onclick="upi(${a})">Pay ₹${a} with UPI</button>
+<p style="text-align:center;margin:12px 0">After paying in your UPI app, come back and confirm.</p>
+<button class="btn o" onclick="go('paid')">I've completed the payment</button>`},
+paid:()=>`<div style="text-align:center;padding-top:60px"><div style="font-size:70px">🎉</div><h1>Welcome to Premium</h1><p>${S.plan=='m'?'₹99 monthly':'₹899 yearly'} plan paid via UPI (8968108692@fam).<br>Receipt sent to your email.</p><button class="btn" style="margin-top:28px" onclick="S.hist=[];go('home')">Back to home</button></div>`};
+function upi(a){location.href='upi://pay?pa=8968108692@fam&pn=PawCare&am='+a+'&cu=INR&tn=PawCare%20Premium';toast('Opening your UPI app…')}
+function cp(){try{navigator.clipboard.writeText('8968108692@fam').then(()=>toast('UPI ID copied'),()=>toast('Copy: 8968108692@fam'))}catch(e){toast('Copy: 8968108692@fam')}}
+function draw(){let h=V[S.scr]();if(S.scr!='ob'){const p=S.p,em={Dog:'🐕',Cat:'🐈'}[p.type]||'🐾',wt=S.w.at(-1);
+h=h.replaceAll('Aarav Sharma',p.own).replaceAll('Aarav',p.own.split(' ')[0]).replaceAll('+91 98xxx xx210',p.ph).replaceAll('Bruno',p.name).replaceAll('🐕',em)
+.replaceAll('Labrador Retriever · Male',p.type+' · '+p.g).replaceAll('Labrador · 3 yrs · 28 kg',p.type+' · '+p.age+' · '+wt+' kg').replaceAll('3 years',p.age)
+.replaceAll('Chicken · Dust mites · Penicillin',p.ax.join(' · ')||'None reported')
+.replaceAll('<span class="tag r">Chicken</span> <span class="tag r">Dust mites</span> <span class="tag r">Penicillin</span>',p.ax.length?p.ax.map(a=>`<span class="tag r">${a}</span>`).join(' '):'<span class="tag g">No known allergies</span>')
+.replaceAll('DHPPi (combo)',p.type=='Cat'?'FVRCP (combo)':p.type=='Dog'?'DHPPi (combo)':'Core vaccine').replaceAll('DHPPi was','Core vaccine was');
+if(S.w.length<2)h=h.replaceAll('▲ 0.4 kg this month','Tracking started')}
+$('#scr').innerHTML=h;$('#scr').scrollTop=0;
+const m={home:'home',vax:'vax',rec:'vax',trk:'vax',pet:'home',sym:'home',vet:'vet',ok:'vet',pawid:'pawid',prem:'prem',pay:'prem',paid:'prem'}[S.scr];
+$('#nv').innerHTML=S.scr=='login'||S.scr=='ob'?'':`<div class="nav">${NAVS.map(n=>`<button class="${m==n[0]?'on':''}" onclick="S.hist=[];go('${n[0]}')"><span>${n[1]}</span>${n[2]}</button>`).join('')}</div>`}
+function signin(p){toast('Signing in with '+p+'…');setTimeout(()=>{S.hist=[];S.st=0;D={ax:[]};go('ob')},700)}
+function mark(i){S.vax[i].s='done';S.vax[i].d='Done today';draw();toast('Marked as done ✓')}
+function addw(){const v=parseFloat($('#wi').value);if(!v)return toast('Enter a weight in kg');S.w.push(v);draw();toast('Weight added')}
+function tg(s){const k=S.sym.indexOf(s);k<0?S.sym.push(s):S.sym.splice(k,1);draw()}
+S.p={type:'Dog',name:'Bruno',age:'3 years',al:'yes',ax:['Chicken','Dust mites','Penicillin'],g:'Male',own:'Aarav Sharma',ph:'+91 98xxx xx210'};S.st=0;let D={ax:[]};
+const steps=()=>['type',...(D.type=='Other'?['other']:[]),'name','age','wt','al',...(D.al=='yes'?['alx']:[]),'gen','own','otp'];
+V.ob=()=>{const ks=steps(),k=ks[S.st],n=ks.length,nm=D.name||'your pet';
+const head=`<div class="top">${S.st?'<button class="bk" onclick="S.st--;draw()" aria-label="Back">‹</button>':'<div style="width:38px"></div>'}<div class="bar" style="flex:1"><i style="width:${(S.st+1)/n*100}%"></i></div><p>${S.st+1}/${n}</p></div>`;
+const q=(t,s,b)=>head+`<h1>${t}</h1><p style="margin-bottom:18px">${s}</p>`+b,go2='<button class="btn" onclick="nx()">Continue</button>';
+const card=(key,arr)=>`<div class="g">${arr.map(([t,e])=>`<button class="tile" style="text-align:center" onclick="pick('${key}','${t}')"><div style="font-size:40px">${e}</div><b>${t}</b></button>`).join('')}</div>`;
+const inp=(ph,v,ex='')=>`<input id="f" placeholder="${ph}" value="${v||''}" ${ex}>`;
+return {
+type:()=>q('What type of pet do you have?','We will tailor reminders and care to your pet.',`<div class="g">${[['Dog','🐕'],['Cat','🐈']].map(([t,e])=>`<button class="tile" style="text-align:center" onclick="pick('type','${t}')"><div style="font-size:44px">${e}</div><b>${t}</b></button>`).join('')}<button class="tile" style="text-align:center;grid-column:span 2" onclick="pick('type','Other')"><div style="font-size:44px">🐾</div><b>Other</b><span>Rabbit, bird, hamster…</span></button></div>`),
+other:()=>q('Which animal is it?','For example: rabbit, parrot or hamster.',inp('Animal name',D.other)+go2),
+name:()=>q(`What is your ${D.type=='Other'?D.other:D.type.toLowerCase()}'s name?`,'This appears on the profile and PawID.',inp('Pet name',D.name)+go2),
+age:()=>q(`How old is ${nm}?`,'Years and months are both fine.',inp('e.g. 2 years 3 months',D.age)+go2),
+wt:()=>q(`How much does ${nm} weigh?`,'You can update this anytime in the tracker.',inp('Weight in kg',D.wt,'type="number" step="0.1" inputmode="decimal"')+go2),
+al:()=>q(`Does ${nm} have any allergies?`,'Vets and PawID will show these first.',card('al',[['Yes','⚠️'],['No','✅']])),
+alx:()=>q('Allergic to which items?','Select all that apply.',['Chicken','Beef','Dairy','Eggs','Wheat / grains','Fish','Dust / pollen','Flea bites','Medicines'].map(a=>`<button class="chip ${D.ax.includes(a)?'on':''}" onclick="tga('${a}')">${a}</button>`).join('')+`<input placeholder="Other (optional)" value="${D.xo||''}" oninput="D.xo=this.value" style="margin-top:6px">`+go2),
+gen:()=>q(`Is ${nm} male or female?`,'Helps with vaccine and care guidance.',card('g',[['Male','♂️'],['Female','♀️']])),
+own:()=>q('About you','We use this for reminders and your pet\'s emergency profile.',inp('Owner name',D.own)+`<div class="row" style="gap:8px"><div style="padding:13px;border:1.5px solid var(--line);border-radius:12px;margin-bottom:10px;background:var(--card)">+91</div><input id="f2" placeholder="Mobile / WhatsApp number" value="${D.ph||''}" type="tel" inputmode="numeric" maxlength="10"></div><p style="margin-bottom:14px">We will send an OTP by SMS to verify this number.</p>`+'<button class="btn" onclick="nx()">Send OTP</button>'),
+otp:()=>q('Verify your number',`Enter the 4-digit code sent by SMS to +91 ${D.ph}.`,inp('0000','','inputmode="numeric" maxlength="4" style="text-align:center;font-size:26px;letter-spacing:12px"')+'<button class="btn" onclick="ver()">Verify & finish</button><p style="text-align:center;margin-top:14px">Didn\'t get it? <b style="color:var(--pri);cursor:pointer" onclick="sms()">Resend OTP</b></p>')}[k]()};
+function pick(k,v){D[k]=v;if(k=='al'&&v=='No')D.ax=[];S.st++;draw()}
+function tga(a){const i=D.ax.indexOf(a);i<0?D.ax.push(a):D.ax.splice(i,1);draw()}
+function nx(){const k=steps()[S.st],v=($('#f')||{}).value?.trim();
+if(k=='other'){if(!v)return toast('Enter the animal name');D.other=v}
+else if(k=='name'){if(!v)return toast('Enter your pet\'s name');D.name=v}
+else if(k=='age'){if(!v)return toast('Enter your pet\'s age');D.age=v}
+else if(k=='wt'){if(!(+v>0))return toast('Enter weight in kg');D.wt=+v}
+else if(k=='own'){const ph=$('#f2').value.trim();if(!v)return toast('Enter your name');if(!/^[6-9]\d{9}$/.test(ph))return toast('Enter a valid 10-digit number');D.own=v;D.ph=ph;S.st++;draw();return sms()}
+S.st++;draw()}
+function sms(){S.otp=String(1000+Math.floor(Math.random()*9000));document.querySelectorAll('.sms').forEach(e=>e.remove());const b=document.createElement('div');b.className='toast sms';b.style.cssText='top:12px;bottom:auto;text-align:left;background:#fff;color:#17332f;box-shadow:0 8px 30px rgba(0,0,0,.3)';b.innerHTML='<b>💬 Messages · now</b><br>'+S.otp+' is your PawCare verification code. Do not share it.';$('#app').appendChild(b);setTimeout(()=>b.remove(),9000)}
+function ver(){if(($('#f').value||'').trim()!=S.otp)return toast('Incorrect code. Check the SMS and try again.');document.querySelectorAll('.sms').forEach(e=>e.remove());
+S.p={type:D.type=='Other'?D.other:D.type,name:D.name,age:D.age,g:D.g,own:D.own,ph:'+91 '+D.ph,ax:[...D.ax,...(D.xo?[D.xo]:[])]};S.w=[D.wt];S.hist=[];S.tab='All';go('home');toast('Number verified. Welcome to PawCare!')}
+draw();
+</script></body></html>
